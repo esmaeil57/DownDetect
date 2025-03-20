@@ -1,8 +1,12 @@
+import 'package:down_detect/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:down_detect/therapist.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'Early detection.dart';
 class HomeScreen extends StatelessWidget {
   static const routeName='details';
+
+  const HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +79,7 @@ class Options extends StatelessWidget{
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.asset("$image"),
+          Image.asset(image),
           const SizedBox(width: 10),
           Expanded(
             child: Column(
@@ -83,14 +87,14 @@ class Options extends StatelessWidget{
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "$text",
+                  text,
                   style: TextStyle(fontSize: 15,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
                 const SizedBox(height: 5),
                  Text(
-                  "$description",
+                  description,
                   style: TextStyle(fontSize: 10, color: Colors.black),
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
@@ -114,13 +118,13 @@ class Options extends StatelessWidget{
 }
 
 class ExpandableTextWidget extends StatefulWidget {
+  const ExpandableTextWidget({super.key});
+
   @override
   _ExpandableTextWidgetState createState() => _ExpandableTextWidgetState();
 }
 
 class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
-  bool isExpanded = false;
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -132,28 +136,79 @@ class _ExpandableTextWidgetState extends State<ExpandableTextWidget> {
         ),
         const SizedBox(height: 8),
         Text(
-          isExpanded
-              ? "Down syndrome is a genetic condition that occurs when a child is born with an extra copy of chromosome 21, resulting in three copies instead of the usual two. This additional genetic material impacts physical and intellectual development. Children with Down syndrome may experience developmental delays and have unique physical traits such as a flatter facial profile, almond-shaped eyes, and a shorter stature.\n\nWhile each individual with Down syndrome is unique, many may face challenges such as learning disabilities, speech delays, and an increased risk of certain health conditions. However, with early intervention, medical care, and supportive environments, children with Down syndrome can lead happy, healthy, and fulfilling lives.\n\nThis app is designed to provide parents with the tools, resources, and support they need to help their child thrive. Whether you're looking for guidance on therapy options, educational strategies, or community connections, we're here to help every step of the way."
-              : "Down syndrome is a genetic condition that occurs when a child is born with an extra copy of chromosome 21, resulting in three copies instead of the usual...",
+          Constants.shortText,
           style: const TextStyle(fontSize: 16),
         ),
         Align(
           alignment: Alignment.centerRight,
           child: InkWell(
             onTap: () {
-              setState(() {
-                isExpanded = !isExpanded;
-              });
+              _showFullTextOverlay(context);
             },
-            child: Text(
-              isExpanded ? "Show less" : "Show more",
-              style: const TextStyle(
-                  decoration: TextDecoration.underline,
-                  color: Colors.black, fontWeight: FontWeight.bold),
+            child: const Text(
+              "Show more",
+              style: TextStyle(
+                decoration: TextDecoration.underline,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
       ],
     );
   }
+
+  void _showFullTextOverlay(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black.withOpacity(0.9), // Semi-transparent background
+      barrierDismissible: true,
+      builder: (BuildContext context) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          insetPadding: const EdgeInsets.all(16),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Color(0xff0E6C73),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.6, // Limit height to avoid overflow
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "What is Down Syndrome?",
+                    style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.normal,
+                        color: Colors.white,
+                      ),
+                    )
+                  ),
+                  const SizedBox(height: 12),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Text(
+                        Constants.fullText,
+                         style: GoogleFonts.lato(
+                           textStyle: TextStyle(fontSize: 13, color: Colors.white),
+                         )
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }

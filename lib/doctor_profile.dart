@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DoctorProfilePage extends StatelessWidget {
+  const DoctorProfilePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -121,6 +123,8 @@ class DoctorProfilePage extends StatelessWidget {
   }
 }
 class AppointmentForm extends StatefulWidget {
+  const AppointmentForm({super.key});
+
   @override
   _AppointmentFormState createState() => _AppointmentFormState();
 }

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'doctor_profile.dart';
 
 class TherapistListScreen extends StatelessWidget {
+  const TherapistListScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -280,8 +282,7 @@ class TherapistSearchDelegate extends SearchDelegate {
 class TherapistResultContainer extends StatelessWidget {
   final Map<String, dynamic> therapist;
 
-  const TherapistResultContainer({Key? key, required this.therapist})
-      : super(key: key);
+  const TherapistResultContainer({super.key, required this.therapist});
 
   @override
   Widget build(BuildContext context) {
