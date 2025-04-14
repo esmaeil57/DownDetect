@@ -1,7 +1,5 @@
-import 'dart:async';
-import 'package:down_detect/views/login_screen.dart';
 import 'package:flutter/material.dart';
-//import 'sign in.dart';
+import '../viewmodels/splash_viewmodel.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,22 +9,20 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final SplashViewModel splashViewModel = SplashViewModel();
+
   @override
   void initState() {
     super.initState();
-    Timer(const Duration(seconds: 3), () {
-      if (!mounted) return; // 🚀 Safe navigation
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const LoginScreen()),
-      );
-    });
+    splashViewModel.handleStartupLogic(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF0E6C73),
       body: Container(
+        width: double.infinity,
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Color(0xFF1BCCD9), Color(0xFF0E6C73)],
@@ -35,9 +31,10 @@ class _SplashScreenState extends State<SplashScreen> {
             stops: [0.15, 0.78],
           ),
         ),
-        child: const Center(
-          child: Image(
-            image: AssetImage("images/logo_white-removebg-preview 2.png"),
+        child: Center(
+          child: Image.asset(
+            "images/logo_white-removebg-preview 2.png",
+            width: 200,
           ),
         ),
       ),

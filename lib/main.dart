@@ -1,32 +1,43 @@
- import 'package:flutter/material.dart';
-import 'package:down_detect/home%20page.dart';
-import 'package:down_detect/sign%20in.dart';
+import 'package:down_detect/viewmodels/doctor_profile_viewmodel.dart';
+import 'package:down_detect/viewmodels/early_detection_viewmodel.dart';
+import 'package:down_detect/viewmodels/home_viewmodel.dart';
+import 'package:down_detect/viewmodels/signup_viewmodel.dart';
+import 'package:down_detect/viewmodels/therapist_viewmodel.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'SplashScreen.dart';
+import 'viewmodels/auth_viewmodel.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider(create: (_) => SignUpViewModel()),
+        ChangeNotifierProvider(create: (_) => TherapistViewModel()),
+        ChangeNotifierProvider(create: (_) => HomeViewModel()),
+        ChangeNotifierProvider(create: (_) => EarlyDetectionViewModel()),
+        ChangeNotifierProvider(create: (_) => DoctorProfileViewModel()),
+
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
-@override
- State<MyApp> createState()=>_MyAppState();
 
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Down Detect',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const SplashScreen(),
+    );
   }
-  class _MyAppState extends State<MyApp> {
-    @override
-    Widget build(BuildContext context) {
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute:LodingScreen.routeName,
-        routes:{
-          LoginScreen.routeName:(_)=>LoginScreen(),
-          HomeScreen.routeName:(_)=>HomeScreen(),
-          LodingScreen.routeName:(_)=>LodingScreen(),
-        }
-
-      );
-
-        }
-    }
+}
