@@ -89,7 +89,6 @@ class LoginScreen extends StatelessWidget {
                         ),
                         onPressed: ()
                         {
-                          // 🟢 Navigate to main app
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
                           );

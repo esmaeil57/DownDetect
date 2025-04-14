@@ -37,7 +37,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           topRight: Radius.circular(8),
         ),
         child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed, // ✅ Force fixed layout
+          type: BottomNavigationBarType.fixed,
           iconSize: 30,
           backgroundColor: const Color(0xFF0E6C73),
           selectedItemColor: Colors.greenAccent,

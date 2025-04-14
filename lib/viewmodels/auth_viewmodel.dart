@@ -8,7 +8,6 @@ class AuthViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  // Call this on login button
   Future<void> signIn(BuildContext context) async {
     final email = emailController.text;
     final password = passwordController.text;
@@ -24,8 +23,6 @@ class AuthViewModel extends ChangeNotifier {
         const SnackBar(content: Text("Login successful")),
       );
 
-      // You can navigate here when needed
-      // Navigator.of(context).pushReplacement(...);
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please enter valid credentials")),
@@ -38,7 +35,6 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Optional: Clear fields
   void clearFields() {
     emailController.clear();
     passwordController.clear();

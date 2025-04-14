@@ -15,7 +15,6 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: const Color(0xfffffffff7),
-      // 🔴 REMOVED: bottomNavigationBar
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
