@@ -143,7 +143,7 @@ class TherapistCard extends StatelessWidget {
           builder: (context) => DoctorProfilePage(therapist: therapist),
         ));
       },
-      splashColor: Colors.teal.withOpacity(0.2),
+      splashColor: Colors.tealAccent,
       highlightShape: BoxShape.rectangle,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
