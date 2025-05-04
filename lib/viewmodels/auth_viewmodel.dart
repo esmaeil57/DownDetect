@@ -8,6 +8,9 @@ class AuthViewModel extends ChangeNotifier {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
+  bool _isLoggedIn = false;
+  bool get isLoggedIn => _isLoggedIn;
+
   Future<void> signIn(BuildContext context) async {
     final email = emailController.text;
     final password = passwordController.text;
@@ -19,6 +22,7 @@ class AuthViewModel extends ChangeNotifier {
     _setLoading(false);
 
     if (email.isNotEmpty && password.isNotEmpty) {
+      _isLoggedIn = true;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Login successful")),
       );
@@ -40,4 +44,10 @@ class AuthViewModel extends ChangeNotifier {
     passwordController.clear();
     notifyListeners();
   }
+
+  void logout() {
+    _isLoggedIn = false;
+    notifyListeners();
+  }
+
 }

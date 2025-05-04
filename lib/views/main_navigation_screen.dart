@@ -30,38 +30,61 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_selectedIndex],
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(8),
-          topRight: Radius.circular(8),
-        ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          iconSize: 30,
-          backgroundColor: const Color(0xFF0E6C73),
-          selectedItemColor: Colors.greenAccent,
-          unselectedItemColor: Colors.white,
-          currentIndex: _selectedIndex,
-          onTap: _onTabTapped,
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_rounded),
-              label: "Profile",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: "Notifications",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: "Settings",
-            ),
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        child: _screens[_selectedIndex],
+      ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+          color: Color(0xFF0E6C73),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              offset: Offset(0, -3),
+            )
           ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            selectedFontSize: 14,
+            unselectedFontSize: 12,
+            selectedIconTheme: const IconThemeData(size: 30),
+            unselectedIconTheme: const IconThemeData(size: 26),
+            selectedItemColor: Colors.white,
+            unselectedItemColor: Colors.white60,
+            currentIndex: _selectedIndex,
+            onTap: _onTabTapped,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_rounded),
+                label: "Profile",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home_rounded),
+                label: "Home",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.notifications_rounded),
+                label: "Alerts",
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.settings_rounded),
+                label: "Settings",
+              ),
+            ],
+          ),
         ),
       ),
     );
