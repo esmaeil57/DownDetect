@@ -5,14 +5,11 @@ class NotificationsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
+    return const  Center(
         child: Text(
           "Notifications Screen (Coming Soon)",
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
-      ),
-    );
+      );
   }
 }

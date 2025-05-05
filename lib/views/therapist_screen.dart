@@ -25,14 +25,18 @@ class _TherapistListScreenState extends State<TherapistListScreen> {
   @override
   Widget build(BuildContext context) {
     final therapistList = Provider.of<TherapistViewModel>(context).therapists;
-    final filteredList = therapistList
-        .where((therapist) =>
-        therapist.name.toLowerCase().contains(searchQuery.toLowerCase()))
-        .toList();
+    final filteredList =
+        therapistList
+            .where(
+              (therapist) => therapist.name.toLowerCase().contains(
+                searchQuery.toLowerCase(),
+              ),
+            )
+            .toList();
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80),
+        preferredSize: const Size.fromHeight(100),
         child: AppBar(
           automaticallyImplyLeading: false,
           elevation: 4,
@@ -49,59 +53,75 @@ class _TherapistListScreenState extends State<TherapistListScreen> {
                 bottomRight: Radius.circular(24),
               ),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: Row(
+            child: Stack(
               children: [
-                if (!isSearching)
-                  IconButton(
-                    icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                // Back button top-left
+                Positioned(
+                  top: 25,
+                  left: 8,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
                     onPressed: () => Navigator.pop(context),
                   ),
-                if (!isSearching) const SizedBox(width: 8),
-                Expanded(
-                  child: Container(
-                    height: 44,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black12,
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
+                ),
+                // Search bar bottom center
+                Positioned(
+                  bottom: 12,
+                  left: 0,
+                  right: 0,
+                  child: Center(
+                    child: Container(
+                      padding: EdgeInsets.only(left: 8.0),
+                      height: 44,
+                      width: MediaQuery.of(context).size.width * 0.85,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(24),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black12,
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        controller: _searchController,
+                        onChanged: (value) {
+                          setState(() {
+                            searchQuery = value;
+                            isSearching = value.isNotEmpty;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Search by therapist name',
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          suffixIcon: const Icon(
+                            Icons.search,
+                            color: Colors.grey,
+                          ),
+                          prefixIcon:
+                              isSearching
+                                  ? IconButton(
+                                    icon: const Icon(
+                                      Icons.close,
+                                      color: Colors.grey,
+                                    ),
+                                    onPressed: () {
+                                      _searchController.clear();
+                                      FocusScope.of(context).unfocus();
+                                      setState(() {
+                                        searchQuery = '';
+                                        isSearching = false;
+                                      });
+                                    },
+                                  )
+                                  : null,
+                          border: InputBorder.none,
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                          ),
                         ),
-                      ],
-                    ),
-                    child: TextField(
-                      controller: _searchController,
-                      onChanged: (value) {
-                        setState(() {
-                          searchQuery = value;
-                          isSearching = value.isNotEmpty;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'Search by doctor name',
-                        hintStyle: const TextStyle(color: Colors.grey),
-                        prefixIcon:
-                        const Icon(Icons.search, color: Colors.grey),
-                        suffixIcon: isSearching
-                            ? IconButton(
-                          icon: const Icon(Icons.close,
-                              color: Colors.grey),
-                          onPressed: () {
-                            _searchController.clear();
-                            FocusScope.of(context).unfocus();
-                            setState(() {
-                              searchQuery = '';
-                              isSearching = false;
-                            });
-                          },
-                        )
-                            : null,
-                        border: InputBorder.none,
-                        contentPadding:
-                        const EdgeInsets.symmetric(vertical: 10),
                       ),
                     ),
                   ),
@@ -111,6 +131,7 @@ class _TherapistListScreenState extends State<TherapistListScreen> {
           ),
         ),
       ),
+
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
@@ -139,9 +160,11 @@ class TherapistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkResponse(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => DoctorProfilePage(therapist: therapist),
-        ));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => DoctorProfilePage(therapist: therapist),
+          ),
+        );
       },
       splashColor: Colors.tealAccent,
       highlightShape: BoxShape.rectangle,
@@ -202,17 +225,17 @@ class TherapistCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     therapist.phone,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey,
-                    ),
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   const SizedBox(height: 6),
                   Row(
                     children: List.generate(
                       therapist.rating,
-                          (index) => const Icon(Icons.star,
-                          color: Color(0xFFFFD700), size: 18),
+                      (index) => const Icon(
+                        Icons.star,
+                        color: Color(0xFFFFD700),
+                        size: 18,
+                      ),
                     ),
                   ),
                 ],

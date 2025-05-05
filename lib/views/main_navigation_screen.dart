@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'home_screen.dart';
 import 'profile_screen.dart';
 import 'settings_screen.dart';
-
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
 
@@ -14,11 +13,11 @@ class MainNavigationScreen extends StatefulWidget {
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _selectedIndex = 1;
 
-  final List<Widget> _screens = [
-    const ProfileScreen(),
-    const HomeScreen(),
-    const NotificationsScreen(),
-    const SettingsScreen(),
+  final List<Widget> _screens = const [
+    ProfileScreen(),
+    HomeScreen(),
+    NotificationsScreen(),
+    SettingsScreen(),
   ];
 
   void _onTabTapped(int index) {

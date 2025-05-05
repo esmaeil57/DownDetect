@@ -13,17 +13,11 @@ class HomeScreen extends StatelessWidget {
     final viewModel = Provider.of<HomeViewModel>(context);
     final options = viewModel.homeOptions;
 
-    return Scaffold(
-      backgroundColor: const Color(0xfffffffff7),
-      body: SingleChildScrollView(
+    return  SafeArea(child:SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {},
-            ),
             const ExpandableTextWidget(),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             ...options.map((option) {
@@ -32,8 +26,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 5),
           ],
         ),
-      ),
-    );
+      ),);
   }
 }
 

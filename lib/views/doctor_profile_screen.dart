@@ -231,15 +231,14 @@ class AppointmentForm extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(double.infinity, 50),
                   backgroundColor: const Color(0xFF00796B),
-                  padding:
-                  const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: const Text(
-                  '          Save',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  'Save',
+                  style: TextStyle(color: Colors.white, fontSize: 18,),
                 ),
               ),
               const SizedBox(height: 40),
