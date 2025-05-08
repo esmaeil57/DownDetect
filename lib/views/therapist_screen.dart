@@ -1,8 +1,9 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../viewmodels/therapist_viewmodel.dart';
+import '../view_model/therapist_viewmodel.dart';
 import '../views/doctor_profile_screen.dart';
-import '../models/therapist.dart';
+import '../data/models/therapist_model.dart';
 
 class TherapistListScreen extends StatefulWidget {
   const TherapistListScreen({super.key});
@@ -248,3 +249,4 @@ class TherapistCard extends StatelessWidget {
     );
   }
 }
+*/

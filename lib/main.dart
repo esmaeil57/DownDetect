@@ -1,13 +1,13 @@
-import 'package:down_detect/viewmodels/doctor_profile_viewmodel.dart';
-import 'package:down_detect/viewmodels/early_detection_viewmodel.dart';
-import 'package:down_detect/viewmodels/fontscale_viewmodel.dart';
-import 'package:down_detect/viewmodels/home_viewmodel.dart';
-import 'package:down_detect/viewmodels/signup_viewmodel.dart';
-import 'package:down_detect/viewmodels/therapist_viewmodel.dart';
+import 'package:down_detect/view_model/doctor_profile_viewmodel.dart';
+import 'package:down_detect/view_model/early_detection_viewmodel.dart';
+import 'package:down_detect/view_model/fontscale_viewmodel.dart';
+import 'package:down_detect/view_model/home_viewmodel.dart';
+import 'package:down_detect/view_model/signup_viewmodel.dart';
+import 'package:down_detect/view_model/therapist_viewmodel.dart';
 import 'package:down_detect/views/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'viewmodels/auth_viewmodel.dart';
+import 'view_model/auth_viewmodel.dart';
 
 void main() {
   runApp(

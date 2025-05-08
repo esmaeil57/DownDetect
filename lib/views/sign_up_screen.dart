@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../viewmodels/signup_viewmodel.dart';
+import '../view_model/signup_viewmodel.dart';
 import 'login_screen.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -90,15 +90,23 @@ class SignUpScreen extends StatelessWidget {
                         decoration: _fieldDecoration("***********"),
                       ),
                       const SizedBox(height: 12),
-                      const Text("Gender",
+                      const Text("Role",
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: Colors.teal)),
-                      _buildGenderDropdown(viewModel),
+                      _buildRoleDropdown(viewModel),
                       const SizedBox(height: 20),
                       ElevatedButton(
-                        onPressed: () => viewModel.signUp(context),
+                        onPressed: () async {
+                          final success = await  viewModel.signUp(context) ;
+                          if (success) {
+                          Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                          builder: (_) => const LoginScreen()),
+                          );
+                          }
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.teal,
                           minimumSize: const Size(double.infinity, 50),
@@ -117,8 +125,7 @@ class SignUpScreen extends StatelessWidget {
                           InkWell(
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                  const LoginScreen()));
+                                  builder: (context) => const LoginScreen()));
                             },
                             child: const Text("Login",
                                 style: TextStyle(color: Colors.teal)),
@@ -148,7 +155,7 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildGenderDropdown(SignUpViewModel viewModel) {
+  Widget _buildRoleDropdown(SignUpViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 1.0),
       child: DropdownButtonFormField<String>(
@@ -159,17 +166,17 @@ class SignUpScreen extends StatelessWidget {
           contentPadding:
           const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         ),
-        hint: const Text("Enter your Gender",
+        hint: const Text("Select your role",
             style: TextStyle(fontWeight: FontWeight.w300, fontSize: 10)),
-        value: viewModel.selectedGender,
-        items: ["Male", "Female"].map((String gender) {
+        value: viewModel.selectedRole,
+        items: ["customer", "admin"].map((String role) {
           return DropdownMenuItem<String>(
-            value: gender,
-            child: Text(gender),
+            value: role,
+            child: Text(role),
           );
         }).toList(),
         onChanged: (String? newValue) {
-          viewModel.setGender(newValue);
+          viewModel.setRole(newValue);
         },
       ),
     );

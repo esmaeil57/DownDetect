@@ -1,7 +1,7 @@
-import 'package:down_detect/viewmodels/auth_viewmodel.dart';
+import 'package:down_detect/view_model/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../viewmodels/fontscale_viewmodel.dart';
+import '../view_model/fontscale_viewmodel.dart';
 import 'login_screen.dart';
 
 class SettingsScreen extends StatefulWidget {

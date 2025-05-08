@@ -1,7 +1,8 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../models/therapist.dart';
-import '../viewmodels/doctor_profile_viewmodel.dart';
+import '../data/models/therapist_model.dart';
+import '../view_model/doctor_profile_viewmodel.dart';
 
 class DoctorProfilePage extends StatelessWidget {
   final Therapist therapist;
@@ -48,7 +49,7 @@ class DoctorProfilePage extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            therapist.phone,
+                            therapist.phonenumber,
                             style: const TextStyle(
                               fontSize: 16,
                               color: Colors.black87,
@@ -65,7 +66,7 @@ class DoctorProfilePage extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Row(
-                        children: List.generate(therapist.rating, (index) {
+                        children: List.generate(therapist.rate, (index) {
                           return const Icon(Icons.star,
                               color: Colors.amber, size: 24);
                         }),
@@ -264,3 +265,4 @@ class AppointmentForm extends StatelessWidget {
     );
   }
 }
+*/

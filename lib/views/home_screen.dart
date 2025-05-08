@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../constants.dart';
-import '../viewmodels/home_viewmodel.dart';
+import '../utils/constants.dart';
+import '../view_model/home_viewmodel.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routeName = 'details';

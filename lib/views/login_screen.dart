@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../viewmodels/auth_viewmodel.dart';
+import '../view_model/auth_viewmodel.dart';
 import 'sign_up_screen.dart';
 import 'main_navigation_screen.dart';
 
@@ -55,14 +55,18 @@ class LoginScreen extends StatelessWidget {
                           color: Colors.teal),
                     ),
                     const SizedBox(height: 15),
-                    const Text("Email", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
+                    const Text("Email",
+                        style: TextStyle(
+                            color: Colors.teal, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 3),
                     TextField(
                       controller: viewModel.emailController,
                       decoration: _inputDecoration("Enter your email"),
                     ),
                     const SizedBox(height: 15),
-                    const Text("Password", style: TextStyle(color: Colors.teal, fontWeight: FontWeight.bold)),
+                    const Text("Password",
+                        style: TextStyle(
+                            color: Colors.teal, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 3),
                     TextField(
                       controller: viewModel.passwordController,
@@ -73,7 +77,8 @@ class LoginScreen extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: TextButton(
                         onPressed: () {},
-                        child: const Text("Forgot Password?", style: TextStyle(color: Colors.teal, fontSize: 12)),
+                        child: const Text("Forgot Password?",
+                            style: TextStyle(color: Colors.teal, fontSize: 12)),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -87,13 +92,20 @@ class LoginScreen extends StatelessWidget {
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 12),
                         ),
-                        onPressed: ()
-                        {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
-                          );
+                        onPressed: () async {
+                          final success = await viewModel.signIn(context);
+                          if (success) {
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (_) => const MainNavigationScreen()),
+                            );
+                          }
                         },
-                        child: const Text("Login", style: TextStyle(color: Colors.white)),
+                        child: viewModel.isLoading
+                            ? const CircularProgressIndicator(
+                            color: Colors.white, strokeWidth: 2)
+                            : const Text("Login",
+                            style: TextStyle(color: Colors.white)),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -106,7 +118,8 @@ class LoginScreen extends StatelessWidget {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => const SignUpScreen()));
                           },
-                          child: const Text(" Sign up", style: TextStyle(color: Colors.teal)),
+                          child: const Text(" Sign up",
+                              style: TextStyle(color: Colors.teal)),
                         )
                       ],
                     ),

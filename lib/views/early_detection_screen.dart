@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../viewmodels/early_detection_viewmodel.dart';
+import '../view_model/early_detection_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class EarlyDetectionScreen extends StatelessWidget {
