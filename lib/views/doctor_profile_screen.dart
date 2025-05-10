@@ -54,26 +54,26 @@ class DoctorProfilePage extends StatelessWidget {
                               fontSize: 16,
                               color: Colors.black87,
                             ),
-                          ),
+                          ), //phone number
                           const Spacer(),
                           GestureDetector(
                             onTap: () {
                               // Add call logic here later
                             },
-                            child: Image.asset("images/9946341 1.png"),
-                          ),
+                            child: Image.asset(therapist.profileImage),
+                          ), //profile image
                         ],
                       ),
                       const SizedBox(height: 8),
                       Row(
-                        children: List.generate(therapist.rate, (index) {
+                        children: List.generate(therapist.rate as int, (index) {
                           return const Icon(Icons.star,
                               color: Colors.amber, size: 24);
                         }),
-                      ),
+                      ), //rate
                       const SizedBox(height: 16),
                       Text(
-                        therapist.description,
+                        therapist.availableSlots,
                         style: const TextStyle(
                           fontSize: 16,
                           color: Colors.black87,

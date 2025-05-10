@@ -225,13 +225,13 @@ class TherapistCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    therapist.phone,
+                    therapist.phonenumber,
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
                   ),
                   const SizedBox(height: 6),
                   Row(
                     children: List.generate(
-                      therapist.rating,
+                      therapist.rate as int,
                       (index) => const Icon(
                         Icons.star,
                         color: Color(0xFFFFD700),

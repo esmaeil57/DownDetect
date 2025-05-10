@@ -1,9 +1,13 @@
+import 'dart:io';
+
+import 'package:down_detect/views/prediction_result_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import '../view_model/early_detection_viewmodel.dart';
+import '../view_model/prediction_viewmodel.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class EarlyDetectionScreen extends StatelessWidget {
+/*class EarlyDetectionScreen extends StatelessWidget {
   const EarlyDetectionScreen({super.key});
 
   @override
@@ -111,6 +115,91 @@ class EarlyDetectionScreen extends StatelessWidget {
                 ),
               ),
             ),
+          ],
+        ),
+      ),
+    );
+  }
+}*/
+
+class PredictionScreen extends StatelessWidget {
+  const PredictionScreen({super.key});
+
+  Future<void> _pickImage(BuildContext context) async {
+    final picker = ImagePicker();
+    final image = await picker.pickImage(source: ImageSource.gallery);
+    if (image != null) {
+      Provider.of<PredictionViewModel>(context, listen: false)
+          .setImage(File(image.path));
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final viewModel = Provider.of<PredictionViewModel>(context);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Early detection"),
+        backgroundColor: Colors.teal,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          children: [
+            const Text(
+              "Upload a photo of the ultrasound picture and you'll get the risk percentage of the baby having down syndrome",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 20),
+            Container(
+              width: 250,
+              height: 250,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: viewModel.selectedImage == null
+                  ? const Center(child: Icon(Icons.add, size: 40))
+                  : ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child:
+                Image.file(viewModel.selectedImage!, fit: BoxFit.cover),
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextButton.icon(
+              onPressed: () => _pickImage(context),
+              icon: const Icon(Icons.upload_file),
+              label: const Text("Upload photo from library"),
+            ),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.teal,
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                onPressed: viewModel.isLoading
+                    ? null
+                    : () async {
+                  await viewModel.predict();
+                  if (viewModel.result != null || viewModel.errorMessage != null) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const PredictionResultScreen(),
+                      ),
+                    );
+                  }
+                },
+                child: const Text("Predict"),
+              ),
+            ),
+            const SizedBox(height: 20),
+            if (viewModel.isLoading) const CircularProgressIndicator(),
           ],
         ),
       ),

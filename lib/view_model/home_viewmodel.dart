@@ -23,7 +23,7 @@ class HomeViewModel extends ChangeNotifier {
       title: "Early detection",
       description:
       "Upload a photo of the ultrasound picture to know the risk percentage of your baby having Down syndrome.",
-      targetScreen: const EarlyDetectionScreen(),
+      targetScreen: const PredictionScreen(),
     ),
     /*HomeOption(
       image: "images/3890590-200 1 (1).png",
