@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import '../data/models/user_model.dart';
 import '../../data/services/user_service.dart';
 
@@ -28,6 +29,13 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearFields(){
+    emailController.clear();
+    passwordController.clear();
+    notifyListeners();
+  }
+
+
   Future<bool> signIn(BuildContext context) async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
@@ -36,14 +44,29 @@ class AuthViewModel extends ChangeNotifier {
 
     try {
       final result = await _service.login(email, password);
-      _currentUser = result['user'];
-      _token = result['token'];
+      final token = result['token'];
+
+      final decoded = JwtDecoder.decode(token);
+      final role = decoded['role'] ?? 'customer';
+      final userId = decoded['id'] ?? ''; // Adjust key name based on your JWT
+
+      _currentUser = User(
+        id: userId,
+        name: '', // Optional: add if your token or backend gives it
+        email: email,
+        password: '',
+        confirmPassword: '',
+        role: role,
+      );
+
+      _token = token;
       _isLoggedIn = true;
 
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Login successful")),
       );
 
+      clearFields();
       notifyListeners();
       return true;
     } catch (e) {
@@ -51,12 +74,13 @@ class AuthViewModel extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text(_errorMessage!)),
       );
-      print(e.toString());
+      clearFields();
       return false;
     } finally {
       _setLoading(false);
     }
   }
+
 
 
   void logout() {

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:down_detect/view_model/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import '../views/login_screen.dart';
 import '../views/main_navigation_screen.dart';
@@ -8,9 +9,9 @@ class SplashViewModel {
     await Future.delayed(const Duration(seconds: 2));
 
     // Placeholder: change to real logic later
-    final bool isLoggedIn = false;
+    final  _isLoggedIn = AuthViewModel();
 
-    if (isLoggedIn) {
+    if (_isLoggedIn.isLoggedIn == true) {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
       );

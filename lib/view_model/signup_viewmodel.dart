@@ -49,6 +49,7 @@ class SignUpViewModel extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Please fill all fields")),
       );
+      clearFields();
       return false; // ✅ Return false on error
     }
 
@@ -56,6 +57,7 @@ class SignUpViewModel extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Passwords do not match")),
       );
+      clearFields();
       return false; // ✅ Return false on mismatch
     }
 

@@ -1,3 +1,4 @@
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/network/api_client.dart';
 import '../models/user_model.dart';
@@ -16,7 +17,6 @@ class UserService {
     await prefs.setString('auth_token', token);
 
     ApiClient.setAuthToken(token);
-
     // If no user data is returned, use email and default values
     final user = User(
       id: '', // or decode from JWT if needed
@@ -37,6 +37,17 @@ class UserService {
     final createdUser = User.fromJson(response.data['user']);
     final token = response.data['token']; // optional: if backend returns token
     return {'user': createdUser, 'token': token};
+  }
+
+  Future<String?> getUserRoleFromToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('auth_token');
+
+    if (token != null) {
+      final decodedToken = JwtDecoder.decode(token);
+      return decodedToken['role']; // e.g., "admin" or "customer"
+    }
+    return null;
   }
 
   Future<void> logout() async {

@@ -6,7 +6,6 @@ class Therapist {
   final String location;
   final String availableSlots;
   final String gender;
-  final String profileImage;
 
   Therapist({
     required this.id,
@@ -16,7 +15,6 @@ class Therapist {
     required this.location,
     required this.availableSlots,
     required this.gender,
-    required this.profileImage
   });
 
   factory Therapist.fromJson(Map<String, dynamic> json) => Therapist(
@@ -27,7 +25,6 @@ class Therapist {
     location: json['location'],
     availableSlots: json['availableSlots'],
     gender: json['gender'],
-    profileImage:json['profileImage']
   );
 
   Map<String, dynamic> toJson() => {
@@ -37,6 +34,5 @@ class Therapist {
     "location": location,
     "availableSlots": availableSlots,
     "gender": gender,
-    "profileImage":profileImage ,
   };
 }
