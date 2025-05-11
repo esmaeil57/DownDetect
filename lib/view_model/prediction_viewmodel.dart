@@ -44,4 +44,13 @@ class PredictionViewModel extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  void resetPrediction() {
+    selectedImage = null;
+    result = null;
+    errorMessage = null;
+    isLoading = false;
+    notifyListeners();
+  }
+
 }
