@@ -1,4 +1,5 @@
 /*
+import 'package:down_detect/view_model/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../view_model/therapist_viewmodel.dart';

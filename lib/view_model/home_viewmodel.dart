@@ -1,3 +1,4 @@
+import 'package:down_detect/views/community_page.dart';
 import 'package:flutter/material.dart';
 import '../views/early_detection_screen.dart';
 import '../views/therapist_screen.dart';
@@ -37,6 +38,7 @@ class HomeViewModel extends ChangeNotifier {
       title: "Supportive Community",
       description:
       "Connect with other parents and families who share similar experiences. Our app provides a safe space to exchange advice, share stories, and offer support",
+      targetScreen: const CommunityPage(),
     ),
     HomeOption(
       image: "images/videooooo 1.png",

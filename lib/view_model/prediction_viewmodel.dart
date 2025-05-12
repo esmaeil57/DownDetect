@@ -30,6 +30,7 @@ class PredictionViewModel extends ChangeNotifier {
 
     try {
       final response = await _service.predict(selectedImage!);
+      // 🧠 Parse prediction result
       if (response.containsKey("result")) {
         result = PredictionResult.fromJson(response);
         errorMessage = null;
