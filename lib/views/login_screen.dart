@@ -1,7 +1,7 @@
+import 'package:down_detect/views/role_selection_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../view_model/auth_viewmodel.dart';
-import 'sign_up_screen.dart';
 import 'main_navigation_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -116,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                         InkWell(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) => const SignUpScreen()));
+                                builder: (context) => RoleSelectionView()));
                           },
                           child: const Text(" Sign up",
                               style: TextStyle(color: Colors.teal)),

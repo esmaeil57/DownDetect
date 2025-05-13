@@ -90,12 +90,12 @@ class SignUpScreen extends StatelessWidget {
                         decoration: _fieldDecoration("***********"),
                       ),
                       const SizedBox(height: 12),
-                      const Text("Role",
+                      /*const Text("Role",
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-                              color: Colors.teal)),
-                      _buildRoleDropdown(viewModel),
+                              color: Colors.teal)),*/
+                      // _buildRoleDropdown(viewModel),
                       const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () async {
@@ -155,7 +155,7 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRoleDropdown(SignUpViewModel viewModel) {
+  /*Widget _buildRoleDropdown(SignUpViewModel viewModel) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 1.0),
       child: DropdownButtonFormField<String>(
@@ -180,5 +180,5 @@ class SignUpScreen extends StatelessWidget {
         },
       ),
     );
-  }
+  }*/
 }
