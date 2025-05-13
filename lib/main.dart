@@ -44,7 +44,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Down Detect',
           theme: ThemeData(
-            primarySwatch: Colors.blue,
+            primarySwatch: Colors.teal,
           ),
           builder: (context, child) {
             final mediaQuery = MediaQuery.of(context);
