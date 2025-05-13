@@ -69,18 +69,12 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
         children: [
           // Custom tab bar with animation
           Container(
-            padding: EdgeInsets.zero,
             decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
-                  offset: const Offset(0, 2),
-                  blurRadius: 4,
-                ),
-              ],
+              color: Colors.transparent,
             ),
             child: TabBar(
+              dividerColor: Colors.transparent,
+              padding: EdgeInsets.zero,
               isScrollable: true,
               controller: _tabController,
               labelColor: Colors.teal,
@@ -107,7 +101,7 @@ class _CommunityPageState extends State<CommunityPage> with SingleTickerProvider
                 tabViewModel.setTabIndex(index);
                 _pageController.animateToPage(
                   index,
-                  duration: const Duration(milliseconds: 300),
+                  duration: const Duration(milliseconds: 200),
                   curve: Curves.easeInOut,
                 );
               },

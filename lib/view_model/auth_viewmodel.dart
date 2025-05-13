@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../data/models/user_model.dart';
 import '../../data/services/user_service.dart';
 
@@ -62,6 +63,9 @@ class AuthViewModel extends ChangeNotifier {
       _token = token;
       _isLoggedIn = true;
 
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('token', token);
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Login successful")),
       );
@@ -83,13 +87,17 @@ class AuthViewModel extends ChangeNotifier {
 
 
 
-  void logout() {
+  void logout() async{
     _isLoggedIn = false;
     _currentUser = null;
     _token = null;
     emailController.clear();
     passwordController.clear();
     _service.logout();
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+
     notifyListeners();
   }
 }
