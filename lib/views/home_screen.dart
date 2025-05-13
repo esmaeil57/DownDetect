@@ -4,7 +4,6 @@ import '../utils/constants.dart';
 import '../view_model/home_viewmodel.dart';
 
 class HomeScreen extends StatelessWidget {
-  static const routeName = 'details';
 
   const HomeScreen({super.key});
 
@@ -22,7 +21,7 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             ...options.map((option) {
               return HomeOptionCard(option: option);
-            }).toList(),
+            }),
             const SizedBox(height: 5),
           ],
         ),
@@ -37,73 +36,73 @@ class HomeOptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 9),
-      width: double.infinity,
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            blurRadius: 8,
-            offset: const Offset(4, 4),
-          ),
-          BoxShadow(
-            color: Colors.white.withOpacity(0.6),
-            blurRadius: 8,
-            offset: const Offset(-4, -4),
-          ),
-        ],
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(option.image),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  option.title,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
+    return GestureDetector(
+      onTap: () => {
+      if (option.targetScreen != null) {
+        Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => option.targetScreen!,
+    ))
+  }
+      },
+      child: Container(
+        margin: const EdgeInsets.only(bottom: 9),
+        width: double.infinity,
+        padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(15),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 8,
+              offset: const Offset(4, 4),
+            ),
+            BoxShadow(
+              color: Colors.white.withOpacity(0.6),
+              blurRadius: 8,
+              offset: const Offset(-4, -4),
+            ),
+          ],
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(option.image),
+            const SizedBox(width: 10),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    option.title,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  option.description,
-                  style: const TextStyle(fontSize: 10, color: Colors.black),
-                  maxLines: 4,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 8),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: InkWell(
-                    onTap: () {
-                      if (option.targetScreen != null) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => option.targetScreen!,
-                        ));
-                      }
-                    },
+                  const SizedBox(height: 5),
+                  Text(
+                    option.description,
+                    style: const TextStyle(fontSize: 10, color: Colors.black),
+                    maxLines: 4,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 8),
+                  Align(
+                    alignment: Alignment.bottomRight,
                     child: const Icon(
                       Icons.arrow_forward_rounded,
                       color: Colors.black,
                       size: 25,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
