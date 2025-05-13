@@ -1,14 +1,14 @@
 import 'package:down_detect/views/community_page.dart';
+import 'package:down_detect/views/therapist_list_screen.dart';
 import 'package:flutter/material.dart';
 import '../views/early_detection_screen.dart';
-import '../views/therapist_screen.dart';
+
 
 class HomeOption {
   final String image;
   final String title;
   final String description;
   final Widget? targetScreen;
-
   HomeOption({
     required this.image,
     required this.title,
@@ -26,13 +26,13 @@ class HomeViewModel extends ChangeNotifier {
       "Upload a photo of the ultrasound picture to know the risk percentage of your baby having Down syndrome.",
       targetScreen: const PredictionScreen(),
     ),
-    /*HomeOption(
+    HomeOption(
       image: "images/3890590-200 1 (1).png",
       title: "Find a therapist",
       description:
       "You can easily find trusted therapists specializing in Down syndrome. We provide a list of recommended professionals with detailed profiles, ratings, and contact information",
-      targetScreen: const TherapistListScreen(),
-    ),*/
+      targetScreen: TherapistListScreen(),
+    ),
     HomeOption(
       image: "images/3047859 1.png",
       title: "Supportive Community",
