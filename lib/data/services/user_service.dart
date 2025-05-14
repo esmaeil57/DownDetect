@@ -60,4 +60,19 @@ class UserService {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('auth_token');
   }
+
+  Future<User> fetchProfile() async {
+    final token = await getSavedToken();
+    if (token == null) {
+      throw Exception('No authentication token found');
+    }
+
+    try {
+      final response = await ApiClient.dio.get('/users/');
+      return User.fromJson(response.data['user']);
+    } catch (e) {
+      throw Exception('Failed to fetch profile: ${e.toString()}');
+    }
+  }
+
 }
