@@ -1,8 +1,6 @@
-import 'package:down_detect/view_model/auth_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../view_model/fontscale_viewmodel.dart';
-import 'login_screen.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -16,6 +14,8 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     final fontScaleVM = Provider.of<FontScaleViewModel>(context);
     final primaryColor = const Color(0xFF0E6C73);
     final secondaryColor = const Color(0xCB17B7BC);
@@ -195,55 +195,116 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
                   ),
                 ),
                 const SizedBox(height: 30),
+                _buildInfoCard(
+                  context: context,
+                  title: 'Account Management',
+                  children: [
+                    _buildActionButton(
+                      context: context,
+                      label: 'Change Password',
+                      onPressed: () {
+                        // Implement password change functionality
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Change password feature coming soon')),
+                        );
+                      },
+                      icon: Icons.lock,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                    const SizedBox(height: 16),
+                    _buildActionButton(
+                      context: context,
+                      label: 'Delete Account',
+                      onPressed: () => ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Delete Account Will be Available Soon'))
+                      ),
+                      icon: Icons.delete_forever,
+                      color: Colors.red,
+                    ),
+                  ],
+                  iconData: Icons.settings,
+                  isDarkMode: isDarkMode,
+                  screenSize: screenSize,
+                ),
 
               ],
             ),
           ),
-        Container(
-          margin: EdgeInsets.all(10.0),
-          child: GestureDetector(
-            onTap: () {
-              Provider.of<AuthViewModel>(context, listen: false).logout();
-              Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
-                    (route) => false,
-              );
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  colors: [Color(0xFFE53935), Color(0xFFFF6B6B)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-                borderRadius: BorderRadius.circular(18),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black54,
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    "Log Out",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                  Icon(Icons.logout, color: Colors.white),
-                ],
-              ),
-            ),
-          ),
-        ),
       ],
     );
   }
+  Widget _buildInfoCard({
+    required BuildContext context,
+    required String title,
+    required List<Widget> children,
+    required IconData iconData,
+    required bool isDarkMode,
+    required Size screenSize,
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(screenSize.width * 0.05),
+      decoration: BoxDecoration(
+        color: isDarkMode ? Colors.grey[800] : Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                iconData,
+                color: Theme.of(context).colorScheme.primary,
+                size: screenSize.width * 0.06,
+              ),
+              SizedBox(width: screenSize.width * 0.03),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: screenSize.width * 0.045,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+          Divider(height: screenSize.height * 0.04),
+          ...children,
+        ],
+      ),
+    );
+  }
+
+  Widget _buildActionButton({
+    required BuildContext context,
+    required String label,
+    required VoidCallback onPressed,
+    required IconData icon,
+    required Color color,
+  }) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton.icon(
+        onPressed: onPressed,
+        icon: Icon(icon, color: Colors.white),
+        label: Text(label),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: color,
+          foregroundColor: Colors.white,
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+    );
+  }
 }
+

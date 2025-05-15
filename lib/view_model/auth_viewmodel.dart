@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import '../data/models/user_model.dart';
 import '../../data/services/user_service.dart';
+import 'package:down_detect/view_model/profile_viewmodel.dart';
 
 class AuthViewModel extends ChangeNotifier {
   final TextEditingController emailController = TextEditingController();
@@ -30,12 +32,11 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void clearFields(){
+  void clearFields() {
     emailController.clear();
     passwordController.clear();
     notifyListeners();
   }
-
 
   Future<bool> signIn(BuildContext context) async {
     final email = emailController.text.trim();
@@ -44,6 +45,9 @@ class AuthViewModel extends ChangeNotifier {
     _setLoading(true);
 
     try {
+      // Log out first to ensure clean state if previously logged in
+      await logout(context, showSnackbar: false);
+
       final result = await _service.login(email, password);
       final token = result['token'];
 
@@ -66,12 +70,14 @@ class AuthViewModel extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);
 
+      // Reset and reload the profile view model to refresh user data
+      await _resetProfileViewModel(context);
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Login successful")),
       );
-
-      clearFields();
       notifyListeners();
+      clearFields();
       return true;
     } catch (e) {
       _errorMessage = 'Login failed. Please check your credentials.';
@@ -85,18 +91,40 @@ class AuthViewModel extends ChangeNotifier {
     }
   }
 
+  // Reset the profile view model on login/logout
+  Future<void> _resetProfileViewModel(BuildContext context) async {
+    try {
+      // Get the ProfileViewModel instance
+      final profileViewModel = Provider.of<ProfileViewModel>(context, listen: false);
 
+      // Reset and initialize with new user data
+      await profileViewModel.resetProfile();
+      await profileViewModel.initialize();
+    } catch (e) {
+      print('Error resetting profile view model: ${e.toString()}');
+    }
+  }
 
-  void logout() async{
+  Future<void> logout(BuildContext context, {bool showSnackbar = true}) async {
     _isLoggedIn = false;
     _currentUser = null;
     _token = null;
     emailController.clear();
     passwordController.clear();
-    _service.logout();
+    await _service.logout();
+    _errorMessage = null;
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
+
+    // Reset the profile view model when logging out
+    await _resetProfileViewModel(context);
+
+    if (showSnackbar) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Logged out successfully")),
+      );
+    }
 
     notifyListeners();
   }

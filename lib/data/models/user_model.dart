@@ -16,13 +16,14 @@ class User {
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-    id: json['_id'],
-    name: json['name'],
-    email: json['email'],
-    password: json['password'],
-    confirmPassword: json['confirmpassword'],
-    role: json['role'],
+    id: json['_id'] ?? '',
+    name: json['name'] ?? '',
+    email: json['email']??'',
+    password: '', // don't fetch from backend for security
+    confirmPassword: '', // not stored or returned by backend
+    role: json['role'] ?? 'customer',
   );
+
 
   Map<String, dynamic> toJson() => {
     "name": name,
