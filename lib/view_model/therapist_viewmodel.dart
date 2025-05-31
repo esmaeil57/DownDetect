@@ -38,15 +38,22 @@ class TherapistViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> updateTherapist(String id) async {
+  Future<void> updateTherapist(Therapist updatedTherapist) async {
     try {
-      await _service.updateTherapist(id);
+      _isLoading = true;
+      notifyListeners();
+
+      await _service.updateTherapist(updatedTherapist);
       await loadTherapists();
     } catch (e) {
       _errorMessage = 'Failed to update therapist';
+    } finally {
+      _isLoading = false;
       notifyListeners();
     }
   }
+
+
 
   Future<void> deleteTherapist(String id) async {
     try {

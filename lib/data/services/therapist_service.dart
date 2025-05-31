@@ -13,9 +13,20 @@ class TherapistService {
     await ApiClient.dio.post('/therapists', data: therapist.toJson());
   }
 
-  Future<void> updateTherapist(String id) async {
-    await ApiClient.dio.put('/therapists/$id');
+  Future<void> updateTherapist(Therapist therapist) async {
+    await ApiClient.dio.put(
+      '/therapists/${therapist.id}',
+      data: {
+        'name': therapist.name,
+        'location': therapist.location,
+        'rate': therapist.rate,
+        'gender': therapist.gender,
+        'phonenumber': therapist.phonenumber,
+        'availableSlots': therapist.availableSlots,
+      },
+    );
   }
+
 
   Future<void> deleteTherapist(String id) async {
     await ApiClient.dio.delete('/therapists/$id');
