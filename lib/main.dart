@@ -13,11 +13,15 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'view_model/auth_viewmodel.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final authViewModel = AuthViewModel();
+  await authViewModel.initialize(); // Load token & user before app starts
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => AuthViewModel()),
+        ChangeNotifierProvider<AuthViewModel>.value(value: authViewModel),
         ChangeNotifierProvider(create: (_) => SignUpViewModel()),
         ChangeNotifierProvider(create: (_) => TherapistViewModel()),
         ChangeNotifierProvider(create: (_) => HomeViewModel()),

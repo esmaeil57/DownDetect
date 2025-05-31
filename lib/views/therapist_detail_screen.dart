@@ -5,7 +5,6 @@ import '../view_model/doctor_profile_viewmodel.dart';
 
 class TherapistDetailScreen extends StatefulWidget {
   final Therapist therapist;
-
   const TherapistDetailScreen({
     super.key,
     required this.therapist,
@@ -132,6 +131,12 @@ class _TherapistDetailScreenState extends State<TherapistDetailScreen> with Sing
   }
 
   Widget _buildTherapistDetail(BuildContext context, bool isSmallScreen,) {
+    double? rate = double.tryParse(widget.therapist.rate);
+    if (rate != null) {
+      print("Parsed value: $rate");
+    } else {
+      print("Invalid input");
+    }
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(
@@ -178,7 +183,7 @@ class _TherapistDetailScreenState extends State<TherapistDetailScreen> with Sing
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
-                widget.therapist.rate.length ,
+                rate != null ? rate.round() : 0,
                     (starIndex) => const Icon(
                   Icons.star,
                   color: Colors.amber,

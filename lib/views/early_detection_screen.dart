@@ -28,11 +28,46 @@ class PredictionScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          "Early Detection",
-          style: GoogleFonts.lato(fontSize: 20, fontWeight: FontWeight.bold),
+        automaticallyImplyLeading: false,
+        elevation: 4,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white), // or Icons.arrow_back_ios
+          onPressed: () {
+            Navigator.pop(context); // 👈 This goes back to the previous screen
+          },
         ),
-        backgroundColor: Colors.teal,
+        flexibleSpace: Container(
+          height: MediaQuery.of(context).size.height*0.13,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF0E6C73), Color(0xFF199CA4)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(24),
+              bottomRight: Radius.circular(24),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical:20),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              SizedBox(width: 8),
+              Text(
+                "Early Detection",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(mediaQuery.size.width * 0.05),
@@ -75,10 +110,12 @@ class PredictionScreen extends StatelessWidget {
             SizedBox(height: mediaQuery.size.height * 0.02),
             TextButton.icon(
               onPressed: () => _pickImage(context),
-              icon: Icon(Icons.upload_file, size: mediaQuery.size.width * 0.05),
+              icon: Icon(Icons.upload_file, size: mediaQuery.size.width * 0.05 ,
+                color: Color(0xFF0E6C73),),
               label: Text(
                 "Upload photo from library",
-                style: GoogleFonts.lato(fontSize: mediaQuery.size.width * 0.04),
+                style: GoogleFonts.lato(fontSize: mediaQuery.size.width * 0.04,
+                    color: Color(0xFF0E6C73)),
               ),
             ),
             SizedBox(height: mediaQuery.size.height * 0.03),
@@ -113,6 +150,7 @@ class PredictionScreen extends StatelessWidget {
                   style: GoogleFonts.lato(
                     fontSize: mediaQuery.size.width * 0.045,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white
                   ),
                 ),
               ),

@@ -38,6 +38,34 @@ class AuthViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> initialize() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedToken = prefs.getString('token');
+
+    if (savedToken != null && savedToken.isNotEmpty) {
+      try {
+        final decoded = JwtDecoder.decode(savedToken);
+        final role = decoded['role'] ?? 'customer';
+        final userId = decoded['id'] ?? '';
+        final email = decoded['email'] ?? '';
+
+        _currentUser = User(
+          id: userId,
+          name: '',
+          email: email,
+          password: '',
+          confirmPassword: '',
+          role: role,
+        );
+        _token = savedToken;
+        _isLoggedIn = true;
+        notifyListeners();
+      } catch (e) {
+        await prefs.remove('token'); // Remove corrupt/expired token
+      }
+    }
+  }
+
   Future<bool> signIn(BuildContext context) async {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();

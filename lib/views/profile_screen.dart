@@ -136,7 +136,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               onTap: () {},
               child: CircleAvatar(
                 radius: screenSize.width * 0.15,
-                backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.2),
+                backgroundColor: Color(0xFF0E6C73).withOpacity(0.2),
                 child: _buildProfileImage(viewModel),
               ),
             ),
@@ -236,7 +236,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             children: [
               Icon(
                 iconData,
-                color: Theme.of(context).colorScheme.primary,
+                color: Color(0xFF0E6C73),
                 size: screenSize.width * 0.06,
               ),
               SizedBox(width: screenSize.width * 0.03),
@@ -281,31 +281,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _buildActionButton({
-    required BuildContext context,
-    required String label,
-    required VoidCallback onPressed,
-    required IconData icon,
-    required Color color,
-  }) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon, color: Colors.white),
-        label: Text(label),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: color,
-          foregroundColor: Colors.white,
-          padding: const EdgeInsets.symmetric(vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
       ),
     );
   }

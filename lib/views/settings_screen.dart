@@ -209,7 +209,7 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
                         );
                       },
                       icon: Icons.lock,
-                      color: Theme.of(context).primaryColor,
+                      color: primaryColor,
                     ),
                     const SizedBox(height: 16),
                     _buildActionButton(
@@ -262,7 +262,7 @@ class _SettingsScreenState extends State<SettingsScreen> with SingleTickerProvid
             children: [
               Icon(
                 iconData,
-                color: Theme.of(context).colorScheme.primary,
+                color: Color(0xFF0E6C73) ,
                 size: screenSize.width * 0.06,
               ),
               SizedBox(width: screenSize.width * 0.03),
