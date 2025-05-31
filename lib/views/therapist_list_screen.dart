@@ -220,6 +220,7 @@ class _TherapistListScreenState extends State<TherapistListScreen> {
         );
 
         if (authViewModel.isAdmin) {
+          print(authViewModel.isAdmin);
           return Dismissible(
             key: ValueKey(therapist.id),
             background: Container(

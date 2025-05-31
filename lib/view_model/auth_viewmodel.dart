@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
+import '../core/network/api_client.dart';
 import '../data/models/user_model.dart';
 import '../../data/services/user_service.dart';
 import 'package:down_detect/view_model/profile_viewmodel.dart';
@@ -59,6 +60,7 @@ class AuthViewModel extends ChangeNotifier {
         );
         _token = savedToken;
         _isLoggedIn = true;
+        ApiClient.setAuthToken(savedToken);
         notifyListeners();
       } catch (e) {
         await prefs.remove('token'); // Remove corrupt/expired token
@@ -98,6 +100,7 @@ class AuthViewModel extends ChangeNotifier {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);
 
+      ApiClient.setAuthToken(token);
       // Reset and reload the profile view model to refresh user data
       await _resetProfileViewModel(context);
 
@@ -144,6 +147,7 @@ class AuthViewModel extends ChangeNotifier {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
+    ApiClient.clearAuthToken();
 
     // Reset the profile view model when logging out
     await _resetProfileViewModel(context);

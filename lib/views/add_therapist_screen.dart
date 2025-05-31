@@ -35,125 +35,169 @@ class _AddTherapistScreenState extends State<AddTherapistScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final isSmallScreen = size.width < 600;
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: MediaQuery.of(context).size.height * 0.1,
-        elevation: 4,
-        backgroundColor: Colors.transparent,
-        flexibleSpace: Container(
-          margin: EdgeInsets.only(bottom: 5),
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Color(0xFF0E6C73), Color(0xFF199CA4)],
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
+      backgroundColor: Colors.grey[50],
+      body: Column(
+        children: [
+          // Custom AppBar
+          Container(
+            height: MediaQuery.of(context).size.height * 0.15,
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF0E6C73), Color(0xFF199CA4)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(30),
+                bottomRight: Radius.circular(30),
+              ),
             ),
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(24),
-              bottomRight: Radius.circular(24),
-            ),
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(
-          horizontal: isSmallScreen ? 16 : size.width * 0.1,
-          vertical: 20,
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Text("Add a Therapist",style:GoogleFonts.paytoneOne(fontSize: 20 ,fontWeight: FontWeight.normal ,
-                    color: Color(0xff0E6C73),)),
-              ),
-              _buildFormField(
-                label: 'Name',
-                controller: _nameController,
-                hint: 'Enter your name',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a name';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-
-              _buildFormField(
-                label: 'Rate',
-                controller: _rateController,
-                hint: 'Enter rate/hour',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a rate';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-
-              _buildFormField(
-                label: 'Phone number',
-                controller: _phoneController,
-                hint: 'Enter phone number',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a phone number';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-
-              _buildGenderDropdown(),
-              const SizedBox(height: 16),
-
-              _buildFormField(
-                label: 'Available slots',
-                controller: _availableSlotsController,
-                hint: 'Enter availability',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter available slots';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 16),
-
-              _buildFormField(
-                label: 'Location',
-                controller: _locationController,
-                hint: 'Enter your location',
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a location';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 30),
-
-              SizedBox(
-                width: double.infinity,
-                height: 50,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF00838F),
-                    foregroundColor: Colors.white,
-                  ),
-                  onPressed: _submitForm,
-                  child: const Text('Save'),
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: Row(
+                  children: [
+                    IconButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      icon: const Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 24,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
+
+          // Form Content
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Title
+                    Center(
+                      child: Text(
+                        "Add a Therapist",
+                        style: GoogleFonts.poppins(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                          color: const Color(0xFF00838F),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+
+                    // Name Field
+                    _buildFormField(
+                      label: 'Name',
+                      controller: _nameController,
+                      hint: 'Enter your name',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a name';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Rate Field
+                    _buildFormField(
+                      label: 'Rate',
+                      controller: _rateController,
+                      hint: 'Add a rate number',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a rate';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Phone Field
+                    _buildFormField(
+                      label: 'phone number',
+                      controller: _phoneController,
+                      hint: '(+20) Number',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a phone number';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Gender Dropdown
+                    _buildGenderDropdown(),
+                    const SizedBox(height: 20),
+
+                    // Available Slots Field
+                    _buildFormField(
+                      label: 'Availableslots',
+                      controller: _availableSlotsController,
+                      hint: 'Enter availableslots',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter available slots';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 20),
+
+                    // Location Field
+                    _buildFormField(
+                      label: 'Location',
+                      controller: _locationController,
+                      hint: 'Enter your location',
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a location';
+                        }
+                        return null;
+                      },
+                    ),
+                    const SizedBox(height: 40),
+
+                    // Save Button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 56,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF00838F),
+                          foregroundColor: Colors.white,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(28),
+                          ),
+                        ),
+                        onPressed: _submitForm,
+                        child: Text(
+                          'Save',
+                          style: GoogleFonts.poppins(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -169,27 +213,59 @@ class _AddTherapistScreenState extends State<AddTherapistScreen> {
       children: [
         Text(
           label,
-          style: const TextStyle(
+          style: GoogleFonts.poppins(
             fontSize: 14,
             fontWeight: FontWeight.w500,
+            color: const Color(0xFF00838F),
           ),
         ),
         const SizedBox(height: 8),
-        TextFormField(
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: hint,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.grey),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.grey),
-            ),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
           ),
-          validator: validator,
+          child: TextFormField(
+            controller: controller,
+            style: GoogleFonts.poppins(
+              fontSize: 14,
+              color: Colors.grey[600],
+            ),
+            decoration: InputDecoration(
+              hintText: hint,
+              hintStyle: GoogleFonts.poppins(
+                fontSize: 14,
+                color: Colors.grey[400],
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Colors.grey[200]!, width: 1),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: const BorderSide(color: Color(0xFF00838F), width: 2),
+              ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: const BorderSide(color: Colors.red, width: 1),
+              ),
+            ),
+            validator: validator,
+          ),
         ),
       ],
     );
@@ -199,74 +275,144 @@ class _AddTherapistScreenState extends State<AddTherapistScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text(
+        Text(
           'Gender',
-          style: TextStyle(
+          style: GoogleFonts.poppins(
             fontSize: 14,
             fontWeight: FontWeight.w500,
+            color: const Color(0xFF00838F),
           ),
         ),
         const SizedBox(height: 8),
-        DropdownButtonFormField<String>(
-          decoration: InputDecoration(
-            hintText: 'Enter your gender',
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.grey),
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.1),
+                spreadRadius: 1,
+                blurRadius: 4,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: DropdownButtonFormField<String>(
+            decoration: InputDecoration(
+              hintText: 'Enter your Gender',
+              hintStyle: GoogleFonts.poppins(
+                fontSize: 14,
+                color: Colors.grey[400],
+              ),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+              filled: true,
+              fillColor: Colors.white,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide.none,
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: BorderSide(color: Colors.grey[200]!, width: 1),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(25),
+                borderSide: const BorderSide(color: Color(0xFF00838F), width: 2),
+              ),
             ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(color: Colors.grey),
+            value: _selectedGender,
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select a gender';
+              }
+              return null;
+            },
+            items: ['Male', 'Female'].map((String gender) {
+              return DropdownMenuItem<String>(
+                value: gender,
+                child: Text(
+                  gender,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    color: Colors.grey[600],
+                  ),
+                ),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              setState(() {
+                _selectedGender = newValue;
+              });
+            },
+            icon: const Icon(
+              Icons.keyboard_arrow_down,
+              color: Color(0xFF00838F),
             ),
           ),
-          value: _selectedGender,
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please select a gender';
-            }
-            return null;
-          },
-          items: ['Male', 'Female', 'Other'].map((String gender) {
-            return DropdownMenuItem<String>(
-              value: gender,
-              child: Text(gender),
-            );
-          }).toList(),
-          onChanged: (String? newValue) {
-            setState(() {
-              _selectedGender = newValue;
-            });
-          },
         ),
       ],
     );
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      final therapist = Therapist(
-        id: '', // ID will be assigned by the server
-        name: _nameController.text,
-        phonenumber: _phoneController.text,
-        rate: _rateController.text,
-        location: _locationController.text,
-        availableSlots: _availableSlotsController.text,
-        gender: _selectedGender ?? '',
+      // Show loading indicator
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            content: Row(
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(width: 20),
+                Text("Adding therapist..."),
+              ],
+            ),
+          );
+        },
       );
 
-      Provider.of<TherapistViewModel>(context, listen: false)
-          .addTherapist(therapist)
-          .then((_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Therapist added successfully')),
+      try {
+        final therapist = Therapist(
+          id: '', // ID will be assigned by the server
+          name: _nameController.text.trim(),
+          phonenumber: _phoneController.text.trim(),
+          rate: _rateController.text.trim(),
+          location: _locationController.text.trim(),
+          availableSlots: _availableSlotsController.text.trim(),
+          gender: _selectedGender ?? '',
         );
-        Navigator.of(context).pop();
-      }).catchError((error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error: ${error.toString()}')),
-        );
-      });
+
+        print('Form data: ${therapist.toJson()}'); // Debug log
+
+        // Get the ViewModel
+        final therapistViewModel = Provider.of<TherapistViewModel>(context, listen: false);
+
+        // Add therapist
+        await therapistViewModel.addTherapist(therapist);
+
+        // Hide loading indicator
+        if (mounted) Navigator.of(context).pop();
+
+        // Show success message
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: const Text('Therapist added successfully!'),
+              backgroundColor: Colors.green,
+              duration: const Duration(seconds: 2),
+            ),
+          );
+
+          // Navigate back to previous screen
+          Navigator.of(context).pop(true); // Pass true to indicate success
+        }
+
+      } catch (error) {
+        print('Submit form error: $error'); // Debug log
+        // Hide loading indicator
+        if (mounted) Navigator.of(context).pop();
+      }
     }
   }
 }
