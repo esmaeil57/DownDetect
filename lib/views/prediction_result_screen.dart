@@ -24,7 +24,7 @@ class PredictionResultScreen extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white), // or Icons.arrow_back_ios
           onPressed: () {
-            Navigator.pop(context); // 👈 This goes back to the previous screen
+            Navigator.pop(context);
           },
         ),
         flexibleSpace: Container(

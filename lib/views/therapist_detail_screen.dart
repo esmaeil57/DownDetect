@@ -70,9 +70,16 @@ class _TherapistDetailScreenState extends State<TherapistDetailScreen> with Sing
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         toolbarHeight: MediaQuery.of(context).size.height * 0.1,
         elevation: 4,
         backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         flexibleSpace: Container(
           margin: EdgeInsets.only(bottom: 5),
           decoration: const BoxDecoration(

@@ -89,7 +89,7 @@ class _TherapistListScreenState extends State<TherapistListScreen> {
               top: 25,
               left: 8,
               child: IconButton(
-                icon: const Icon(Icons.arrow_back_ios, color: Colors.white),
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () => Navigator.pop(context),
               ),
             ),
