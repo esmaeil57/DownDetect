@@ -1,3 +1,4 @@
+import 'package:down_detect/views/HelpfulVideosScreen.dart';
 import 'package:down_detect/views/community_page.dart';
 import 'package:down_detect/views/therapist_list_screen.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +46,7 @@ class HomeViewModel extends ChangeNotifier {
       title: "Helpful Video Library",
       description:
       "Explore a collection of videos featuring real-life stories from other parents and individuals with Down syndrome, sharing their experiences and insights, and other educational videos",
+      targetScreen: const HelpfulVideosScreen(),
     ),
   ];
 }

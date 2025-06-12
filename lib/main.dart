@@ -2,6 +2,7 @@ import 'package:down_detect/view_model/community_view_model.dart';
 import 'package:down_detect/view_model/doctor_profile_viewmodel.dart';
 import 'package:down_detect/view_model/early_detection_viewmodel.dart';
 import 'package:down_detect/view_model/fontscale_viewmodel.dart';
+import 'package:down_detect/view_model/helpful_video_viewmodel.dart';
 import 'package:down_detect/view_model/home_viewmodel.dart';
 import 'package:down_detect/view_model/prediction_viewmodel.dart';
 import 'package:down_detect/view_model/profile_viewmodel.dart';
@@ -27,7 +28,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => PredictionViewModel()),
         ChangeNotifierProvider(create: (_) => TabViewModel()),
         ChangeNotifierProvider(create: (_) => CommunityViewModel()),
-        ChangeNotifierProvider(create: (_) => ProfileViewModel())
+        ChangeNotifierProvider(create: (_) => ProfileViewModel()),
+        ChangeNotifierProvider(create: (_) => HelpfulVideoViewModel()..loadVideos())
       ],
       child: const MyApp(),
     ),

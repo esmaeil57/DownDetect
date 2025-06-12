@@ -1,30 +1,26 @@
 class HelpfulVideo {
-  final String id;
-  final String title;
-  final String description;
   final String url;
   final String? thumbnail;
+  final String? title;
+  final String? description;
 
   HelpfulVideo({
-    required this.id,
-    required this.title,
-    required this.description,
     required this.url,
     this.thumbnail,
+    this.title,
+    this.description,
   });
 
-  factory HelpfulVideo.fromJson(Map<String, dynamic> json) => HelpfulVideo(
-    id: json['_id'],
-    title: json['title'],
-    description: json['description'],
-    url: json['url'],
-    thumbnail: json['thumbnail'],
-  );
+  // Factory constructor for creating from YouTube API data
+  factory HelpfulVideo.fromYouTubeData(Map<String, dynamic> data, String url) {
+    final snippet = data['items'][0]['snippet'];
+    final thumbnails = snippet['thumbnails'];
 
-  Map<String, dynamic> toJson() => {
-    "title": title,
-    "description": description,
-    "url": url,
-    "thumbnail": thumbnail,
-  };
+    return HelpfulVideo(
+      url: url,
+      thumbnail: thumbnails['high']['url'] ?? thumbnails['default']['url'],
+      title: snippet['title'],
+      description: snippet['description'],
+    );
+  }
 }
