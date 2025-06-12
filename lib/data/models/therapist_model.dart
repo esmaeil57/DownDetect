@@ -6,7 +6,6 @@ class Therapist {
   final String location;
   final String availableSlots;
   final String gender;
-
   Therapist({
     required this.id,
     required this.phonenumber,
@@ -35,4 +34,23 @@ class Therapist {
     "availableSlots": availableSlots,
     "gender": gender,
   };
+  Therapist copyWith({
+    String? name,
+    String? location,
+    String? rate,
+    String? gender,
+    String? phoneNumber,
+    String? availableSlots,
+    String? id,
+  }) {
+    return Therapist(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      location: location ?? this.location,
+      rate: rate ?? this.rate,
+      gender: gender ?? this.gender,
+      phonenumber: phoneNumber ?? this.phonenumber,
+      availableSlots:availableSlots ?? this.availableSlots,
+    );
+  }
 }

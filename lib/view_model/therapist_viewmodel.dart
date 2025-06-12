@@ -15,13 +15,18 @@ class TherapistViewModel extends ChangeNotifier {
 
   Future<void> loadTherapists() async {
     _isLoading = true;
+    _errorMessage = null; // Clear previous errors
     notifyListeners();
 
     try {
+      print('Loading therapists...'); // Debug log
       _therapists = await _service.fetchAllTherapists();
+      print('Loaded ${_therapists.length} therapists'); // Debug log
       _errorMessage = null;
     } catch (e) {
-      _errorMessage = 'Failed to load therapists';
+      print('Error loading therapists: $e'); // Debug log
+      _errorMessage = 'Failed to load therapists: $e';
+      _therapists = []; // Clear list on error
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -30,31 +35,67 @@ class TherapistViewModel extends ChangeNotifier {
 
   Future<void> addTherapist(Therapist therapist) async {
     try {
+      print('Adding therapist: ${therapist.name}'); // Debug log
+
+      // Add therapist to database
       await _service.addTherapist(therapist);
+      print('Therapist added to database successfully'); // Debug log
+
+      // Reload the list to get updated data
       await loadTherapists();
+      print('Therapist list reloaded'); // Debug log
+
     } catch (e) {
-      _errorMessage = 'Failed to add therapist';
+      print('Error adding therapist: $e'); // Debug log
+      _errorMessage = 'Failed to add therapist: $e';
       notifyListeners();
+      // Re-throw the error so the UI can handle it
+      throw e;
     }
   }
 
-  Future<void> updateTherapist(String id) async {
+  Future<void> updateTherapist(Therapist updatedTherapist) async {
     try {
-      await _service.updateTherapist(id);
+      _isLoading = true;
+      _errorMessage = null;
+      notifyListeners();
+
+      print('Updating therapist: ${updatedTherapist.name}'); // Debug log
+      await _service.updateTherapist(updatedTherapist);
       await loadTherapists();
+      print('Therapist updated successfully'); // Debug log
+
     } catch (e) {
-      _errorMessage = 'Failed to update therapist';
+      print('Error updating therapist: $e'); // Debug log
+      //_errorMessage = 'Failed to update therapist: $e';
+    } finally {
+      _isLoading = false;
       notifyListeners();
     }
   }
 
   Future<void> deleteTherapist(String id) async {
     try {
+      print('Deleting therapist with id: $id'); // Debug log
       await _service.deleteTherapist(id);
       await loadTherapists();
+      print('Therapist deleted successfully'); // Debug log
+
     } catch (e) {
-      _errorMessage = 'Failed to delete therapist';
+      print('Error deleting therapist: $e'); // Debug log
+      _errorMessage = 'Failed to delete therapist: $e';
       notifyListeners();
     }
+  }
+
+  // Method to clear error messages
+  void clearError() {
+    _errorMessage = null;
+    notifyListeners();
+  }
+
+  // Method to manually refresh the list
+  Future<void> refresh() async {
+    await loadTherapists();
   }
 }

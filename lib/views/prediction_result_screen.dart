@@ -17,9 +17,47 @@ class PredictionResultScreen extends StatelessWidget {
       );
     }
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Prediction Result"),
-        backgroundColor: Colors.teal,
+      appBar:AppBar(
+        automaticallyImplyLeading: false,
+        elevation: 4,
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white), // or Icons.arrow_back_ios
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        flexibleSpace: Container(
+          height: MediaQuery.of(context).size.height*0.13,
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF0E6C73), Color(0xFF199CA4)],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(24),
+              bottomRight: Radius.circular(24),
+            ),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical:20),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: const [
+              SizedBox(width: 8),
+              Text(
+                "Prediction Result",
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  letterSpacing: 0.5,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
