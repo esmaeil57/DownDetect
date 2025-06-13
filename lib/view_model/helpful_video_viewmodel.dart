@@ -4,86 +4,130 @@ import '../data/services/helpful_video_service.dart';
 
 class HelpfulVideoViewModel extends ChangeNotifier {
   final HelpfulVideoService _service = HelpfulVideoService();
+
   List<HelpfulVideo> _videos = [];
   bool _isLoading = false;
   bool _isAddingVideo = false;
   String? _errorMessage;
-  bool _isInitialized = false;
 
   List<HelpfulVideo> get videos => _videos;
   bool get isLoading => _isLoading;
   bool get isAddingVideo => _isAddingVideo;
   String? get errorMessage => _errorMessage;
 
-  // Initialize the view model
-  Future<void> initialize() async {
-    if (_isInitialized) return;
-
-    _isLoading = true;
-    notifyListeners();
-
-    try {
-      await _service.initialize();
-      _videos = await _service.fetchAllVideos();
-      _isInitialized = true;
-      _errorMessage = null;
-    } catch (e) {
-      _errorMessage = 'Failed to initialize: ${e.toString()}';
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
-  }
-
-  // Load all videos
   Future<void> loadVideos() async {
-    if (!_isInitialized) {
-      await initialize();
-      return;
-    }
-
-    _isLoading = true;
-    notifyListeners();
+    _setLoading(true);
+    _clearError();
 
     try {
       _videos = await _service.fetchAllVideos();
       _errorMessage = null;
     } catch (e) {
-      _errorMessage = 'Failed to load videos: ${e.toString()}';
+      print('Error loading videos: $e');
+      _errorMessage = 'Failed to load videos. Please try again.';
+      _videos = []; // Clear videos on error
     } finally {
-      _isLoading = false;
-      notifyListeners();
+      _setLoading(false);
     }
   }
 
-  // Add a new video with metadata
-  Future<void> addVideo(String url) async {
-    if (!_isInitialized) {
-      await initialize();
-    }
-
-    _isAddingVideo = true;
-    _errorMessage = null;
-    notifyListeners();
+  Future<void> addVideo(HelpfulVideo video) async {
+    _setAddingVideo(true);
+    _clearError();
 
     try {
-      final video = await _service.addVideo(url);
-
-      // No need to add to _videos list manually as we'll reload the whole list
-      await loadVideos();
-
+      await _service.addVideo(video);
+      await loadVideos(); // Reload the videos list
+      _errorMessage = null;
     } catch (e) {
-      _errorMessage = 'Failed to add video: ${e.toString()}';
-      notifyListeners();
-    } finally {
-      _isAddingVideo = false;
+      print('Error adding video: $e');
+      _errorMessage = 'Failed to add video. Please check your connection and try again.';
+      _setAddingVideo(false);
       notifyListeners();
     }
   }
 
-  // Clear any errors
+  Future<void> updateVideo(String id, HelpfulVideo updatedVideo) async {
+    _setLoading(true);
+    _clearError();
+
+    try {
+      await _service.updateVideo(id, updatedVideo);
+      await loadVideos(); // Reload the videos list
+      _errorMessage = null;
+    } catch (e) {
+      print('Error updating video: $e');
+      _errorMessage = 'Failed to update video. Please try again.';
+      _setLoading(false);
+      notifyListeners();
+    }
+  }
+
+  Future<void> deleteVideo(String id) async {
+    _setLoading(true);
+    _clearError();
+
+    try {
+      await _service.deleteVideo(id);
+      await loadVideos(); // Reload the videos list
+      _errorMessage = null;
+    } catch (e) {
+      print('Error deleting video: $e');
+      _errorMessage = 'Failed to delete video. Please try again.';
+      _setLoading(false);
+      notifyListeners();
+    }
+  }
+
+  // Helper methods
+  void _setLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
+  void _setAddingVideo(bool value) {
+    _isAddingVideo = value;
+    if (!value) {
+      notifyListeners();
+    }
+  }
+
+  void _clearError() {
+    _errorMessage = null;
+  }
+
+  // Clear any errors manually
   void clearError() {
     _errorMessage = null;
     notifyListeners();
+  }
+
+  // Reset the view model state
+  void reset() {
+    _videos.clear();
+    _isLoading = false;
+    _isAddingVideo = false;
+    _errorMessage = null;
+    notifyListeners();
+  }
+
+  // Get video by ID
+  HelpfulVideo? getVideoById(String id) {
+    try {
+      return _videos.firstWhere((video) => video.id == id);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Search videos by title or description
+  List<HelpfulVideo> searchVideos(String query) {
+    if (query.isEmpty) return _videos;
+
+    final lowercaseQuery = query.toLowerCase();
+    return _videos.where((video) {
+      return video.title.toLowerCase().contains(lowercaseQuery) ||
+          video.description.toLowerCase().contains(lowercaseQuery);
+    }).toList();
   }
 }

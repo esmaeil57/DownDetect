@@ -75,8 +75,7 @@ class PredictionScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
-              "Upload a photo of the ultrasound picture and you'll get the risk"
-                  " percentage of the baby having Down Syndrome",
+              "Upload a photo of the ultrasound picture",
               textAlign: TextAlign.center,
               style: GoogleFonts.lato(fontSize: mediaQuery.size.width * 0.04),
             ),

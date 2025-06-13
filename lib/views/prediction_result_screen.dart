@@ -81,15 +81,28 @@ class PredictionResultScreen extends StatelessWidget {
                         style: const TextStyle(fontSize: 16),
                       ),
                       const SizedBox(height: 20),
-                      Text(
-                        "confidence: '${result.confidence.toStringAsFixed(2)}%'",
-                        style: const TextStyle(fontSize: 16),
-                      ),
-                      const SizedBox(height: 20),
-                      Text(
-                        "predicted_class_index: ${result.predictedClassIndex}",
-                        style: const TextStyle(fontSize: 16),
-                      ),
+                      if (result.result == 'Non-Standardexpected')
+                        const Text(
+                          "🎉 Congratulations on your new baby! Every child is unique, "
+                              "and your child is no exception.",
+                          style: TextStyle(
+                            color: Colors.teal,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      if (result.result == 'Standardnormal')
+                        const Text(
+                          "🎉 Congratulations on your new baby! ,"
+                              " thanks for using our app 😃",
+                          style: TextStyle(
+                            color: Colors.teal,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
                     ],
                   ),
                 )

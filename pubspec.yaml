@@ -40,12 +40,13 @@ dependencies:
   shared_preferences: ^2.2.2
   dio: ^5.8.0+1
   url_launcher: ^6.3.1
-  video_info_plus: ^1.0.2
-  youtube_explode_dart: ^2.4.0
+  shimmer: ^3.0.0
+  webview_flutter: ^4.4.2  # Instead of youtube_player_flutter
   cached_network_image: ^3.2.2
   html: ^0.15.0
   metadata_fetch: 0.4.2
   youtube_player_iframe: ^4.0.4
+  share_plus: ^7.2.1 # For sharing functionality
 
 
 

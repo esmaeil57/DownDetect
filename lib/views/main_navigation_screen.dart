@@ -16,7 +16,6 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   final List<Widget> _screens = const [
     ProfileScreen(),
     HomeScreen(),
-    NotificationsScreen(),
     SettingsScreen(),
   ];
 
@@ -37,8 +36,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         decoration: const BoxDecoration(
           color: Color(0xFF0E6C73),
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(50),
+            topRight: Radius.circular(50),
           ),
           boxShadow: [
             BoxShadow(
@@ -74,10 +73,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
                 icon: Icon(Icons.home_rounded),
                 label: "Home",
               ),
-              BottomNavigationBarItem(
+              /*BottomNavigationBarItem(
                 icon: Icon(Icons.notifications_rounded),
                 label: "Alerts",
-              ),
+              ),*/
               BottomNavigationBarItem(
                 icon: Icon(Icons.settings_rounded),
                 label: "Settings",
