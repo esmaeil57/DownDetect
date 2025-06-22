@@ -73,7 +73,7 @@ Backend powered by Node.js + MongoD
 📷 Screenshots
 ## 📷 Screenshots
 
-<div>
+<div align = "center">
 <img src="https://github.com/user-attachments/assets/2950f87f-d138-45bf-9e1f-aa3919f6cc90" width="140"/>
 <img src="https://github.com/user-attachments/assets/26eb861a-31cc-4d1a-b6ef-f451f10db28b" width="140"/>
 <img src="https://github.com/user-attachments/assets/82f9cb73-d83f-4a53-b64e-93c9384c55cc" width="140"/>
