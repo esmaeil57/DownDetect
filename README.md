@@ -70,4 +70,25 @@ Ensure Android uses INTERNET permission in AndroidManifest.xml:
 Backend powered by Node.js + MongoD
 
 📷 Screenshots
-<div align="center"> <table> <tr> <td><img src="https://github.com/user-attachments/assets/2950f87f-d138-45bf-9e1f-aa3919f6cc90" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/26eb861a-31cc-4d1a-b6ef-f451f10db28b" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/82f9cb73-d83f-4a53-b64e-93c9384c55cc" width="200"/></td> </tr> <tr> <td><img src="https://github.com/user-attachments/assets/ddf9aed0-85a7-43ff-a998-a066e26197f3" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/e1ac627c-5b7d-47c0-b882-d86c337ed70c" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/a4c90336-549b-4bd5-ba1f-ab5bb498361f" width="200"/></td> </tr> <tr> <td><img src="https://github.com/user-attachments/assets/731392af-0e3b-40fa-90cb-1b33ce334e66" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/331c4503-aaaf-4a66-9062-6f2ca0f30ea8" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/f61003a5-7bf1-475a-b991-4259157419eb" width="200"/></td> </tr> <tr> <td><img src="https://github.com/user-attachments/assets/2fa9ef8c-2c37-4064-8c73-bfc475963213" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/a821cefd-a68e-4fa7-9415-02ff6d115dc9" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/fd17f286-7c9f-4ef2-85a7-33228a429f92" width="200"/></td> </tr> <tr> <td><img src="https://github.com/user-attachments/assets/bdeb733c-4f65-4cb0-95a3-5be74983177b" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/e2de5ede-ed26-4cc7-a149-d723bf605b16" width="200"/></td> <td><img src="https://github.com/user-attachments/assets/2a7ccf61-3efd-4c86-bb67-38c3bfe5d12c" width="200"/></td> </tr> </table> </div>
+## 📷 Screenshots
+
+<div align="center">
+<img src="https://github.com/user-attachments/assets/2950f87f-d138-45bf-9e1f-aa3919f6cc90" width="140"/>
+<img src="https://github.com/user-attachments/assets/26eb861a-31cc-4d1a-b6ef-f451f10db28b" width="140"/>
+<img src="https://github.com/user-attachments/assets/82f9cb73-d83f-4a53-b64e-93c9384c55cc" width="140"/>
+<img src="https://github.com/user-attachments/assets/ddf9aed0-85a7-43ff-a998-a066e26197f3" width="140"/>
+<img src="https://github.com/user-attachments/assets/e1ac627c-5b7d-47c0-b882-d86c337ed70c" width="140"/>
+<img src="https://github.com/user-attachments/assets/a4c90336-549b-4bd5-ba1f-ab5bb498361f" width="140"/>
+<img src="https://github.com/user-attachments/assets/731392af-0e3b-40fa-90cb-1b33ce334e66" width="140"/>
+<img src="https://github.com/user-attachments/assets/331c4503-aaaf-4a66-9062-6f2ca0f30ea8" width="140"/>
+
+<br/><br/>
+<img src="https://github.com/user-attachments/assets/f61003a5-7bf1-475a-b991-4259157419eb" width="140"/>
+<img src="https://github.com/user-attachments/assets/2fa9ef8c-2c37-4064-8c73-bfc475963213" width="140"/>
+<img src="https://github.com/user-attachments/assets/a821cefd-a68e-4fa7-9415-02ff6d115dc9" width="140"/>
+<img src="https://github.com/user-attachments/assets/fd17f286-7c9f-4ef2-85a7-33228a429f92" width="140"/>
+<img src="https://github.com/user-attachments/assets/bdeb733c-4f65-4cb0-95a3-5be74983177b" width="140"/>
+<img src="https://github.com/user-attachments/assets/e2de5ede-ed26-4cc7-a149-d723bf605b16" width="140"/>
+<img src="https://github.com/user-attachments/assets/2a7ccf61-3efd-4c86-bb67-38c3bfe5d12c" width="140"/>
+
+</div>
