@@ -70,7 +70,7 @@ Ensure Android uses INTERNET permission in AndroidManifest.xml:
 
 Backend powered by Node.js + MongoD
 
-📷 Screenshots
+
 ## 📷 Screenshots
 
 <div align = "center">
@@ -87,7 +87,7 @@ Backend powered by Node.js + MongoD
 <img src="https://github.com/user-attachments/assets/f61003a5-7bf1-475a-b991-4259157419eb" width="140"/>
 <img src="https://github.com/user-attachments/assets/2fa9ef8c-2c37-4064-8c73-bfc475963213" width="140"/>
 
-<br/></br
+<br/></br>
 <img src="https://github.com/user-attachments/assets/a821cefd-a68e-4fa7-9415-02ff6d115dc9" width="140"/>
 <img src="https://github.com/user-attachments/assets/fd17f286-7c9f-4ef2-85a7-33228a429f92" width="140"/>
 <img src="https://github.com/user-attachments/assets/bdeb733c-4f65-4cb0-95a3-5be74983177b" width="140"/>
